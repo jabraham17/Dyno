@@ -2,60 +2,60 @@ module Dyno {
   use DynoC;
   use CTypes;
   class Context {
-    var handle: chpl_dyno_Context;
+    var handle: dynoc_Context;
     proc init() {
-      handle = chpl_dyno_ContextCreate();
+      handle = dynoc_ContextCreate();
     }
     proc deinit() {
-      chpl_dyno_ContextDestroy(handle);
+      dynoc_ContextDestroy(handle);
     }
 
     proc parse(filename: string): owned AstNodeList {
-      var list = chpl_dyno_Context_parse(handle, filename.c_str());
+      var list = dynoc_Context_parse(handle, filename.c_str());
       return new AstNodeList(list);
     }
   }
   class AstNodeList {
-    var handle: chpl_dyno_AstNodeList;
+    var handle: dynoc_AstNodeList;
     proc deinit() {
-      chpl_dyno_AstNodeListDestroy(handle);
+      dynoc_AstNodeListDestroy(handle);
     }
     iter these(): AstNode {
       for i in 0..<this.size {
-        yield new AstNode(chpl_dyno_AstNodeList_get(handle, i.safeCast(c_int)));
+        yield new AstNode(dynoc_AstNodeList_get(handle, i.safeCast(c_int)));
       }
     }
     proc size: int {
-      return chpl_dyno_AstNodeList_size(handle);
+      return dynoc_AstNodeList_size(handle);
     }
     proc this(idx: int): AstNode {
       return new AstNode(
-        chpl_dyno_AstNodeList_get(handle, idx.safeCast(c_int)));
+        dynoc_AstNodeList_get(handle, idx.safeCast(c_int)));
     }
   }
   @chplcheck.ignore("CamelCaseRecords")
   record AstNode {
-    var handle: chpl_dyno_AstNode;
+    var handle: dynoc_AstNode;
     proc id(): string {
-      return try! string.createCopyingBuffer(chpl_dyno_AstNode_id(handle));
+      return try! string.createCopyingBuffer(dynoc_AstNode_id(handle));
     }
     proc tag(): string {
-      return try! string.createCopyingBuffer(chpl_dyno_AstNode_tag(handle));
+      return try! string.createCopyingBuffer(dynoc_AstNode_tag(handle));
     }
     iter children(): AstNode {
-      for i in 0..<chpl_dyno_AstNode_numChildren(handle):int {
-        yield new AstNode(chpl_dyno_AstNode_child(handle, i.safeCast(c_int)));
+      for i in 0..<dynoc_AstNode_numChildren(handle):int {
+        yield new AstNode(dynoc_AstNode_child(handle, i.safeCast(c_int)));
       }
     }
     proc is(param name: string): bool {
-      proc cname() param do return "chpl_dyno_is" + name;
-      extern cname() proc chplDynoIs(node: chpl_dyno_AstNode): c_int;
+      proc cname() param do return "dynoc_is" + name;
+      extern cname() proc chplDynoIs(node: dynoc_AstNode): c_int;
       return chplDynoIs(handle) != 0;
     }
     proc to(param name: string) {
       if name == "Comment" {
-        proc cname() param do return "chpl_dyno_is" + name;
-        extern cname() proc chplDynoIs(node: chpl_dyno_AstNode): c_int;
+        proc cname() param do return "dynoc_is" + name;
+        extern cname() proc chplDynoIs(node: dynoc_AstNode): c_int;
         if chplDynoIs(handle) == 0 {
           halt("AstNode of tag " + this.tag() +
                " cannot be converted to " + name);
@@ -72,7 +72,7 @@ module Dyno {
     forwarding var node: AstNode;
     proc text(): string {
       return try! string.createCopyingBuffer(
-        chpl_dyno_Comment_text(chpl_dyno_toComment(node.handle)));
+        dynoc_Comment_text(dynoc_toComment(node.handle)));
     }
   }
 

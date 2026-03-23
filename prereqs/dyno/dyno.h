@@ -6,8 +6,8 @@
 extern "C" {
 #endif
 
-#define CHPL_DYNO_PREFIX chpl_dyno_
-#define CHPL_DYNO_API(name) chpl_dyno_##name
+#define CHPL_DYNO_PREFIX dynoc_
+#define CHPL_DYNO_API(name) dynoc_##name
 
 typedef void* CHPL_DYNO_API(Context);
 CHPL_DYNO_API(Context) CHPL_DYNO_API(ContextCreate)();
