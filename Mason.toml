@@ -10,6 +10,7 @@ copyrightYear="2026"
 license="Apache-2.0"
 
 compopts = ["--main-module=Dyno"]
+docopts = "-Mprereqs/dyno/"
 
 [dependencies]
 
