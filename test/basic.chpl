@@ -69,8 +69,8 @@ proc testFindComments(test: borrowed Test) throws {
   var result = new list(string);
   var asts = ctx.parse(testFile);
   for n in preorder(asts) {
-    if n.is("Comment") {
-      result.pushBack(n.to("Comment").text());
+    if n.is(Comment) {
+      result.pushBack(n.to(Comment).text());
     }
   }
   test.assertEqual(result.size, 3);

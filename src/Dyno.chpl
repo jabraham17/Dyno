@@ -47,24 +47,20 @@ module Dyno {
         yield new AstNode(dynoc_AstNode_child(handle, i.safeCast(c_int)));
       }
     }
-    proc is(param name: string): bool {
-      proc cname() param do return "dynoc_is" + name;
+    proc is(type AstNodeType): bool {
+      proc cname() param do return "dynoc_is" + AstNodeType:string;
       extern cname() proc chplDynoIs(node: dynoc_AstNode): c_int;
       return chplDynoIs(handle) != 0;
     }
-    proc to(param name: string) {
-      if name == "Comment" {
-        proc cname() param do return "dynoc_is" + name;
-        extern cname() proc chplDynoIs(node: dynoc_AstNode): c_int;
-        if chplDynoIs(handle) == 0 {
-          halt("AstNode of tag " + this.tag() +
-               " cannot be converted to " + name);
-        }
-        return new Comment(this);
-      } else {
-        compilerError("Cannot convert AstNode of tag " +
-                      this.tag() + " to " + name);
+    proc to(type AstNodeType) {
+      param name = AstNodeType:string;
+      proc cname() param do return "dynoc_is" + name;
+      extern cname() proc chplDynoIs(node: dynoc_AstNode): c_int;
+      if chplDynoIs(handle) == 0 {
+        halt("AstNode of tag " + this.tag() +
+              " cannot be converted to " + name);
       }
+      return new AstNodeType(this);
     }
   }
   @chplcheck.ignore("CamelCaseRecords")

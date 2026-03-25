@@ -8,8 +8,8 @@ module GetCommentText {
     const myFile = Reflection.getFileName();
     var asts = ctx.parse(myFile);
     for n in preorder(asts) {
-      if n.is("Comment") {
-        var comment = n.to("Comment");
+      if n.is(Comment) {
+        var comment = n.to(Comment);
         writeln("Comment text: ", comment.text());
       }
     }
