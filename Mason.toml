@@ -1,16 +1,13 @@
 [brick]
-name="Dyno"
-version="0.1.0"
-chplVersion="2.8.0"
-type="library"
-source="https://github.com/jabraham17/Dyno.git"
-
-authors=["Jade Abraham"]
-copyrightYear="2026"
-license="Apache-2.0"
-
+name = "Dyno"
+version = "0.2.0"
+chplVersion = "2.8.0"
+type = "library"
+source = "https://github.com/jabraham17/Dyno.git"
+authors = ["Jade Abraham"]
+copyrightYear = "2026"
+license = "Apache-2.0"
 compopts = ["--main-module=Dyno"]
 docopts = "-Mprereqs/dyno/"
 
 [dependencies]
-
