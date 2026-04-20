@@ -7,7 +7,6 @@ source = "https://github.com/jabraham17/Dyno.git"
 authors = ["Jade Abraham"]
 copyrightYear = "2026"
 license = "Apache-2.0"
-compopts = ["--main-module=Dyno"]
 docopts = "-Mprereqs/dyno/"
 
 [dependencies]

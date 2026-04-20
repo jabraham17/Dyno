@@ -25,7 +25,7 @@ all:
 
 
 printchplflags:
-	@$(info --ccflags=-DCHPL_DO_EXTERN_C --ccflags=-Wno-strict-prototypes -I$(MASON_PACKAGE_HOME)/prereqs/dyno/ $(INCLUDES) $(MASON_PACKAGE_HOME)/prereqs/dyno/DynoC.chpl $(MASON_PACKAGE_HOME)/prereqs/dyno/dyno.o $(LIBS) )
+	@$(info --ccflags=-DCHPL_DO_EXTERN_C --ccflags=-Wno-strict-prototypes -I$(MASON_PACKAGE_HOME)/prereqs/dyno/ $(INCLUDES) -M $(MASON_PACKAGE_HOME)/prereqs/dyno/ $(MASON_PACKAGE_HOME)/prereqs/dyno/dyno.o $(LIBS) )
 
 clean:
 	rm -f dyno.o DynoC.chpl
