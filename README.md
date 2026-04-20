@@ -7,7 +7,7 @@ A very basic AST manipulation library for Chapel. This serves as a proof of conc
 Add Dyno as a Mason dependency:
 
 ```bash
-mason add Dyno@0.2.0
+mason add Dyno@0.1.0
 ```
 
 ## Usage

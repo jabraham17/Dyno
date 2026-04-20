@@ -1,6 +1,6 @@
 [brick]
 name = "Dyno"
-version = "0.2.0"
+version = "0.1.0"
 chplVersion = "2.8.0"
 type = "library"
 source = "https://github.com/jabraham17/Dyno.git"
